@@ -119,14 +119,14 @@ def init_photo_bkg(los):
 
 
 rootpath="/data/hqchen/mfp_project/data/"
-folderL=glob.glob(rootpath+"F_a*_50pMpc/")
+folderL=glob.glob(rootpath+"E_a*_50pMpc/")
 
 sample_dist=np.linspace(1,49,4801)
 
 for folderp in folderL:
     #folder="F_a0.1401_50pMpc/"
     folder=folderp.split(rootpath)[-1]
-    auni=float(folder.split("_50pMpc/")[0].split("F_a")[-1])
+    auni=float(folder.split("_50pMpc/")[0].split("E_a")[-1])
     zuni=1/auni-1
     Hz=cosmo.H(zuni).value
 
@@ -135,6 +135,9 @@ for folderp in folderL:
     for losName in losList[:]:
         lr=yt.load(losName)
         los={}
+        print(lr.r['gas','RT_HVAR_HeII']/lr.r['gas','RT_HVAR_HII'])
+        print((lr.r['gas','RT_HVAR_HeIII']*2+lr.r['gas','RT_HVAR_HeII'])/lr.r['gas','RT_HVAR_HII'])
+        continue
         los["dr"]=lr.r['dl'].in_units("Mpc").v
         los["dist"]=np.cumsum(los["dr"])-los["dr"][0]/2.
         los["T"]=lr.r['temperature'].in_units("K").v
@@ -149,4 +152,4 @@ for folderp in folderL:
         gammalist+=list(func(sample_dist))
     
     
-    np.save("unisample_gamma_bkg_z={:3.1f}.npy".format(zuni),gammalist)
+    #np.save("B40E_unisample_gamma_bkg_z={:3.1f}.npy".format(zuni),gammalist)
