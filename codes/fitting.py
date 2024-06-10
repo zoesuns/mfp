@@ -19,7 +19,7 @@ def kap(drArr,Req,xi,kapbg):
     - drArr: array of radial step sizes in pMpc
     - Req: characteristic scale in pMpc, where \Gamma_qso==\Gamma_bkg assuming pure geometric dillusion
     - xi: power-law index
-    - kapbg: background opacity in 1/pMpc
+    - kapbg: background opacity in 1/cm
 
     Returns:
     - kapr: array of kappa values at each radial step
@@ -44,7 +44,7 @@ def tau_LyC(wv_rest,zqso,Req,xi,kapbg,xsec_index=2.75,debug=True):
     - zqso: redshift of the quasar
     - Req: [pMpc], model parameter characterizing quasar luminosity, where \Gamma_qso==\Gamma_bkg assuming pure geometric dillusion.
     - xi: dimensionless, power-law index
-    - kapbg: [1/pMpc], background opacity 
+    - kapbg: [1/cm], background opacity 
 
     Returns:
     - tau_eff: LyC optical depth at each wv_rest
@@ -61,7 +61,7 @@ def tau_LyC(wv_rest,zqso,Req,xi,kapbg,xsec_index=2.75,debug=True):
     tau_eff=clight.to("km/s").value/H0/cosmo.Om0**0.5*(1+z912)**xsec_index*integ
     return tau_eff
 
-def fit_func(wv_rest_arr,zqso,Req,xi,mfp,xsec_index=2.75):
+def fit_func_dist_equal_wv(wv_rest_arr,zqso,Req,xi,mfp,xsec_index=2.75):
     """
     make sure dAA is small enough
     """
